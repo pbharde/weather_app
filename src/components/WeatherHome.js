@@ -103,7 +103,7 @@ class WeatherHome extends React.Component {
     let condition = this.state.weatherType;
     return (
       <div>
-      <h1>{this.state.city},{this.state.state}</h1>
+      <h1 style={{display: 'flex',justifyContent: 'center'}}>{this.state.city},{this.state.state}</h1>
      <div className="container">
         {
           <TempCard

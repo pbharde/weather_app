@@ -17,7 +17,7 @@ class DayCard extends React.Component {
       let icon = reading.weather[0].icon;
         let day =  moment(newDate.setTime(reading.dt * 1000)).format('dddd');
         let time = moment(newDate.setTime(reading.dt * 1000)).format('MMMM Do, h:mm a');
-        let img = reading.weather[0].icon;
+        // let img = reading.weather[0].icon;
         let temp = Math.round(reading.main.temp);
         let condition= reading.weather[0].description;
         let weatherData =  ({
@@ -34,12 +34,7 @@ class DayCard extends React.Component {
 }
 
 getImages(){
-  let urls = this.state.weatherData.map(data => {
-    return (`http://openweathermap.org/img/wn/${data.icon}@2x.png`)
-    });
-
-
-  Promise.all(this.props.dailyData.map(data=>
+    Promise.all(this.props.dailyData.map(data=>
     fetch(`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`)
   ))
   .then(res=>{
@@ -65,9 +60,9 @@ getImages(){
         'condition':weatherData[i].condition
       })
     }
-    let newDate = new Date();
+    // let newDate = new Date();
     return (
-      <div className="row justify-content-center">
+      <div className="row" style={{marginTop:'4%',display: 'flex',justifyContent: 'center'}}>
       {
         dailyData.length>=5 ? (
         dailyData.map((reading,index)=>{
@@ -76,7 +71,7 @@ getImages(){
               <div className="card">
                 <h3 className="card-title" style={{fontSize:'20px'}}>{reading.day} </h3>
                 <p className="text-muted" style={{fontSize:'13px'}}>{reading.time}</p>
-                <img src={reading.icon}/>
+                <img src={reading.icon} alt={reading.condition}/>
                 <h2>{reading.temp} °F</h2>
                 <div className="card-body">
                   <p className="card-text">{reading.condition}</p>

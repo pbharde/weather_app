@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  AreaChart, Area, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-} from 'recharts';
+import { AreaChart, Area, XAxis, YAxis } from 'recharts';
 
 class HourCard extends React.Component {
   constructor(props){
@@ -17,12 +15,14 @@ class HourCard extends React.Component {
       let temp = Math.round(((parseFloat(data.split("|")[0])-273.15)*1.8)+32);
       let time = data.split("|")[1].split(" ")[1].split(":")[0]>12 ?
                  data.split("|")[1].split(" ")[1].split(":")[0]-12+" PM" :
-                 (data.split("|")[1].split(" ")[1].split(":")[0] == 12 ?
+                 (data.split("|")[1].split(" ")[1].split(":")[0] === 12 ?
                  data.split("|")[1].split(" ")[1].split(":")[0]+" PM" :
                  (data.split("|")[1].split(" ")[1].split(":")[0]>10 ?
                  data.split("|")[1].split(" ")[1].split(":")[0]+" AM" :
+                 (data.split("|")[1].split(" ")[1].split(":")[0] === '00' ?
+                 '12 AM' :
                  data.split("|")[1].split(" ")[1].split(":")[0].substr(1)+" AM"
-               ));
+                 )));
 
       return({
         "temp":temp,
@@ -38,7 +38,7 @@ class HourCard extends React.Component {
   return <text x={x} y={y} fill="#666" textAnchor="middle" dy={-6}>{`${value}  °F`}</text>;
 };
     return (
-      <div  className="col-sm-12" style={{marginTop:'4%'}}>
+      <div  className="col-sm-12" style={{marginTop:'4%',display: 'flex',justifyContent: 'center'}}>
       <AreaChart width={800} height={100} data={this.state.hourlyData}>
       <defs>
     <linearGradient id="temp" x1="0" y1="0" x2="0" y2="1">
